@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
+
 
 class PostController extends Controller
 {
@@ -13,18 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $blogs = [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10
-        ];
+        $blogs = Post::orderBy('titulo', 'ASC')->paginate(5);
         return view('posts.index',compact('blogs'));
         
         
@@ -59,7 +50,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return view('posts.show',compact('id'));
+        $post = Post::where('id','=',$id)->get();
+        return view('posts.show',compact('post'));
     }
 
     /**
@@ -93,6 +85,22 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::findOrFail($id)->delete();
+        return redirect()->route('posts.index');
+    }
+
+    public function nuevoPrueba(){
+        $post = new Post();
+        $post->titulo= 'Titulo '.rand();
+        $post->contenido = 'Contenido '.rand();
+        $post->save();
+        return redirect()->route('posts.index');
+    }
+    public function editarPrueba($id){
+        $post = Post::findOrFail($id);
+        $post->titulo= 'Titulo '.rand();
+        $post->contenido = 'Contenido '.rand();
+        $post->save();
+        return redirect()->route('posts.index');
     }
 }

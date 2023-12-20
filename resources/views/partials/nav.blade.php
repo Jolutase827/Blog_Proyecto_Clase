@@ -5,5 +5,7 @@
         <a class="me-2" href="{{route('posts.index')}}">Mostrar</a>
         <a class="me-2 " href="{{route('posts.create')}}">Crear</a>
         <a class="me-2" href="{{route('posts.edit',6)}}">Editar</a>
+        <a class="me-2" href="{{route('editarPrueba')}}">PruebaCrear</a>
+        <a class="me-2" href="{{route('crearPrueba',7)}}">PruebaEditar</a>
     </div>
 </nav>

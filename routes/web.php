@@ -16,4 +16,7 @@ Route::get('/',function(){
     return view('inicio'); 
  })->name('inicio');
 
-Route::resource('/posts', PostController::class)->only(['index','show','create','edit']);
+Route::resource('/posts', PostController::class)->only(['index','show','create','edit','destroy']);
+
+Route::get('/posts/modificarPrueba',[PostController::class,'editarPrueba'])->name('editarPrueba');
+Route::get('/posts/crearPrueba/{id}',[PostController::class,'crearPrueba'])->name('crearPrueba');
