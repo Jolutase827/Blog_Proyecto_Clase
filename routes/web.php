@@ -15,8 +15,8 @@ use App\Http\Controllers\PostController;
 Route::get('/',function(){
     return view('inicio'); 
  })->name('inicio');
+ Route::get('/posts/nuevoPrueba',[PostController::class,'nuevoPrueba'])->name('nuevoPrueba');
+ Route::get('/posts/editarPrueba/{id}',[PostController::class,'editarPrueba'])->name('editarPrueba');
+ 
+ Route::resource('/posts', PostController::class)->only(['index','show','create','edit','destroy']);
 
-Route::resource('/posts', PostController::class)->only(['index','show','create','edit','destroy']);
-
-Route::get('/posts/modificarPrueba',[PostController::class,'editarPrueba'])->name('editarPrueba');
-Route::get('/posts/crearPrueba/{id}',[PostController::class,'crearPrueba'])->name('crearPrueba');
