@@ -7,7 +7,7 @@
         <h4 class="ms-5">Post nº {{$blog->id}}</h4>
         <div class="d-flex justify-content-between align-items-center mb-5 ms-5 col-5">
             <div>
-                {{$blog->titulo}}
+                {{$blog->titulo}}({{$blog->usuario->login}})
             </div>
             <div class="col-5 d-flex justify-content-between">
                 <a href="{{route('posts.show',$blog)}}" class="col-3 btn btn-primary mb-3 p-3">Ver</a>

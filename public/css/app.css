@@ -11996,3 +11996,15 @@ a:hover {
 body {
   overflow-x: hidden;
 }
+
+.contenedor-comentarios > div {
+  border: 2px solid rgb(199, 198, 198);
+}
+
+.contenedor-comentarios > div:nth-child(odd) {
+  background-color: white;
+}
+
+.contenedor-comentarios > div:nth-child(even) {
+  background-color: rgb(184, 184, 184);
+}
