@@ -18,5 +18,5 @@ Route::get('/',function(){
  Route::get('/posts/nuevoPrueba',[PostController::class,'nuevoPrueba'])->name('nuevoPrueba');
  Route::get('/posts/editarPrueba/{id}',[PostController::class,'editarPrueba'])->name('editarPrueba');
  
- Route::resource('/posts', PostController::class)->only(['index','show','create','edit','destroy']);
+ Route::resource('/posts', PostController::class)->only(['index','show','create','edit','destroy','store','update']);
 

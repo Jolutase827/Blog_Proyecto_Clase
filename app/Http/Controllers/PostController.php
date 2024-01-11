@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
+use App\Models\Comentario;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Usuario;
 
 
 class PostController extends Controller
@@ -28,7 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return redirect()->route('inicio')->with('mensaje', 'Aquí va un formulario');
+        return view('posts.create');
     }
 
     /**
@@ -37,9 +40,14 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $post = new Post();
+        $post->titulo = $request->get('titulo');
+        $post->contenido = $request->get('contenido');
+        $post->usuario()->associate(Usuario::inRandomOrder()->first());
+        $post->save();
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -62,7 +70,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        return redirect()->route('inicio')->with('mensaje', 'Aquí va un formulario');
+        $post = Post::findOrFail($id);
+        return view('posts.edit',compact('post'));
     }
 
     /**
@@ -72,9 +81,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
-        //
+        Post::findOrFail($id)->update($request->all());
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -85,6 +95,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+        Comentario::where('post_id',$id)->delete();
         Post::findOrFail($id)->delete();
         return redirect()->route('posts.index');
     }

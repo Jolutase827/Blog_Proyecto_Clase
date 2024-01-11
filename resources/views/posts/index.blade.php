@@ -11,7 +11,7 @@
             </div>
             <div class="col-5 d-flex justify-content-between">
                 <a href="{{route('posts.show',$blog)}}" class="col-3 btn btn-primary mb-3 p-3">Ver</a>
-                <a href="{{route('editarPrueba',$blog)}}" class="col-3 btn btn-success p-3 mb-3">Editar</a>
+                <a href="{{route('posts.edit',$blog)}}" class="col-3 btn btn-success p-3 mb-3">Editar</a>
                 <form action="{{ route('posts.destroy', $blog) }}" method="POST" class="col-3">
                     @method('DELETE')
                     @csrf
