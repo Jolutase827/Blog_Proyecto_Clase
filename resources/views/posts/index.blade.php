@@ -11,12 +11,16 @@
             </div>
             <div class="col-5 d-flex justify-content-between">
                 <a href="{{route('posts.show',$blog)}}" class="col-3 btn btn-primary mb-3 p-3">Ver</a>
-                <a href="{{route('posts.edit',$blog)}}" class="col-3 btn btn-success p-3 mb-3">Editar</a>
-                <form action="{{ route('posts.destroy', $blog) }}" method="POST" class="col-3">
-                    @method('DELETE')
-                    @csrf
-                    <button class="col-12 btn btn-danger p-3">Borrar</button>
-                </form>
+                @if((auth()->check()))
+                    @if(auth()->user()->login === $blog->usuario->login)
+                    <a href="{{route('posts.edit',$blog)}}" class="col-3 btn btn-success p-3 mb-3">Editar</a>
+                    <form action="{{ route('posts.destroy', $blog) }}" method="POST" class="col-3">
+                        @method('DELETE')
+                        @csrf
+                        <button class="col-12 btn btn-danger p-3">Borrar</button>
+                    </form>
+                    @endif
+                @endif
             </div>
         </div>
         

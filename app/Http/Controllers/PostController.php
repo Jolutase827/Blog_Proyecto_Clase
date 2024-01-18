@@ -11,6 +11,17 @@ use App\Models\Usuario;
 
 class PostController extends Controller
 {
+
+
+
+    public function __construct()
+    {
+        $this->middleware(
+            'auth',
+            ['only' => ['create', 'store', 'edit', 'update', 'destroy']]
+        );
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +30,7 @@ class PostController extends Controller
     public function index()
     {
         $blogs = Post::with('usuario')->orderBy('titulo', 'ASC')->paginate(5);
-        return view('posts.index',compact('blogs'));
-        
-        
+        return view('posts.index', compact('blogs'));
     }
 
     /**
@@ -59,7 +68,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.show',compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -71,7 +80,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.edit',compact('post'));
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -95,22 +104,24 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        Comentario::where('post_id',$id)->delete();
+        Comentario::where('post_id', $id)->delete();
         Post::findOrFail($id)->delete();
         return redirect()->route('posts.index');
     }
 
-    public function nuevoPrueba(){
+    public function nuevoPrueba()
+    {
         $post = new Post();
-        $post->titulo= 'Titulo '.rand();
-        $post->contenido = 'Contenido '.rand();
+        $post->titulo = 'Titulo ' . rand();
+        $post->contenido = 'Contenido ' . rand();
         $post->save();
         return redirect()->route('posts.index');
     }
-    public function editarPrueba($id){
+    public function editarPrueba($id)
+    {
         $post = Post::findOrFail($id);
-        $post->titulo= 'Titulo '.rand();
-        $post->contenido = 'Contenido '.rand();
+        $post->titulo = 'Titulo ' . rand();
+        $post->contenido = 'Contenido ' . rand();
         $post->save();
         return redirect()->route('posts.index');
     }
