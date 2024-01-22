@@ -12,7 +12,7 @@
             <div class="col-5 d-flex justify-content-between">
                 <a href="{{route('posts.show',$blog)}}" class="col-3 btn btn-primary mb-3 p-3">Ver</a>
                 @if((auth()->check()))
-                    @if(auth()->user()->login === $blog->usuario->login)
+                    @if(auth()->user()->login === $blog->usuario->login||auth()->user()->rol==='admin')
                     <a href="{{route('posts.edit',$blog)}}" class="col-3 btn btn-success p-3 mb-3">Editar</a>
                     <form action="{{ route('posts.destroy', $blog) }}" method="POST" class="col-3">
                         @method('DELETE')
@@ -23,7 +23,7 @@
                 @endif
             </div>
         </div>
-        
+
     @empty
         <p>No hay blogs disponibles</p>
     @endforelse
